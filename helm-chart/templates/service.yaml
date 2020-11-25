@@ -3,18 +3,14 @@ kind: Service
 metadata:
   name: {{ include "helm-chart.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "helm-chart.name" . }}
-    helm.sh/chart: {{ include "helm-chart.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "helm-chart.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - nodePort: {{ .Values.service.exposePort }}
-      port: {{ .Values.service.internalPort }}
+    - port: {{ .Values.service.port }}
+      nodePort: {{ .Values.service.exposePort }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "helm-chart.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "helm-chart.selectorLabels" . | nindent 4 }}
