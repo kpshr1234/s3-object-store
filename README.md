@@ -55,7 +55,7 @@ https://minikube.sigs.k8s.io/docs/start/
 #### Install Helm chart 
 
 ```shell 
-helm install "my_app" helm-chart
+helm install "my-app" helm-chart
 ```
 
 #### Get running service list
